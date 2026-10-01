@@ -1,0 +1,773 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<title>Elephante Date Night RSVP</title>
+
+<style>
+
+:root{
+  --cream:#fff9f5;
+  --blush:#f4e2d8;
+  --ink:#3b241d;
+  --muted:#7a5a50;
+  --gold:#b9855e;
+  --line:#dfc8b9;
+  --white:#fff;
+}
+
+*{
+  box-sizing:border-box;
+}
+
+body{
+  margin:0;
+  min-height:100vh;
+  padding:24px 14px;
+
+  font-family:Georgia,"Times New Roman",serif;
+
+  color:var(--ink);
+
+  background:
+    radial-gradient(circle at 20% 0%,#fff 0 12%,transparent 13%),
+    linear-gradient(145deg,var(--cream),var(--blush));
+}
+
+.wrap{
+  max-width:680px;
+  margin:0 auto;
+}
+
+.card{
+  background:#fffaf7f0;
+  border:1px solid var(--line);
+  border-radius:28px;
+
+  padding:28px;
+
+  box-shadow:0 22px 55px #77513d25;
+}
+
+.eyebrow{
+  text-align:center;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+
+  color:var(--gold);
+
+  font-size:.78rem;
+}
+
+h1{
+  text-align:center;
+
+  font-size:clamp(2.35rem,9vw,4.8rem);
+
+  font-style:italic;
+  font-weight:500;
+
+  line-height:1;
+
+  margin:10px 0;
+}
+
+.sub{
+  text-align:center;
+
+  color:var(--muted);
+
+  margin:0 0 24px;
+}
+
+.event{
+  text-align:center;
+
+  border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line);
+
+  padding:18px 0;
+  margin-bottom:22px;
+}
+
+.event strong{
+  font-size:1.42rem;
+}
+
+.event div{
+  margin-top:6px;
+  color:var(--muted);
+}
+
+/* MENU BUTTON */
+
+.menu-link{
+  display:inline-block;
+
+  margin-top:15px;
+
+  padding:11px 18px;
+
+  border:1px solid var(--gold);
+  border-radius:999px;
+
+  background:#fff8f3;
+
+  color:var(--ink);
+
+  text-decoration:none;
+
+  font-size:.94rem;
+  font-weight:700;
+
+  transition:.15s ease;
+}
+
+.menu-link:hover{
+  background:#f3e2d8;
+  transform:translateY(-1px);
+}
+
+/* LABELS */
+
+label.title{
+  display:block;
+
+  font-weight:700;
+  font-size:1.04rem;
+
+  margin:18px 0 9px;
+}
+
+/* TEXT INPUTS */
+
+input[type=text],
+textarea{
+
+  width:100%;
+
+  border:1px solid var(--line);
+  border-radius:14px;
+
+  padding:14px 15px;
+
+  background:white;
+
+  font:inherit;
+  color:var(--ink);
+
+  outline:none;
+}
+
+input[type=text]:focus,
+textarea:focus{
+
+  border-color:var(--gold);
+
+  box-shadow:0 0 0 3px #b9855e22;
+}
+
+textarea{
+
+  min-height:92px;
+
+  resize:vertical;
+}
+
+/* TIME OPTIONS */
+
+.options{
+  display:grid;
+  gap:10px;
+}
+
+.option{
+
+  display:flex;
+
+  align-items:center;
+
+  gap:12px;
+
+  padding:13px 14px;
+
+  border:1px solid var(--line);
+
+  border-radius:16px;
+
+  background:white;
+
+  cursor:pointer;
+
+  transition:.15s ease;
+}
+
+.option:hover{
+
+  border-color:var(--gold);
+
+  transform:translateY(-1px);
+}
+
+.option input{
+
+  accent-color:#8d5d45;
+
+  transform:scale(1.15);
+}
+
+.time{
+
+  font-weight:700;
+
+  min-width:84px;
+}
+
+.desc{
+
+  color:var(--muted);
+
+  font-style:italic;
+}
+
+/* SUBMIT BUTTON */
+
+button{
+
+  width:100%;
+
+  margin-top:24px;
+
+  border:0;
+
+  border-radius:999px;
+
+  padding:15px 18px;
+
+  background:var(--ink);
+
+  color:#fff;
+
+  font-size:1rem;
+
+  font-weight:700;
+
+  cursor:pointer;
+}
+
+button:disabled{
+
+  opacity:.6;
+
+  cursor:not-allowed;
+}
+
+.note{
+
+  text-align:center;
+
+  color:var(--muted);
+
+  font-size:.82rem;
+
+  margin-top:14px;
+}
+
+/* CONFIRMATION */
+
+.confirm{
+
+  display:none;
+
+  text-align:center;
+
+  padding:34px 12px;
+}
+
+.confirm .heart{
+
+  font-size:2.4rem;
+}
+
+.confirm h2{
+
+  font-size:2rem;
+
+  margin:8px 0;
+}
+
+.confirm p{
+
+  color:var(--muted);
+
+  line-height:1.55;
+}
+
+/* ERROR */
+
+.error{
+
+  display:none;
+
+  margin-top:14px;
+
+  padding:12px;
+
+  border:1px solid #d7a69a;
+
+  border-radius:12px;
+
+  background:#fff2ef;
+
+  color:#6e352b;
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+<div class="wrap">
+
+<section class="card" id="formCard">
+
+
+<div id="formView">
+
+
+<div class="eyebrow">
+Official Invitation
+</div>
+
+
+<h1>
+Pick a time for us ♡
+</h1>
+
+
+<div class="sub">
+You choose the time. I’ll handle the rest 😉
+</div>
+
+
+<!-- DATE + RESTAURANT -->
+
+<div class="event">
+
+<strong>
+Elephante — Dallas
+</strong>
+
+<div>
+Friday, October 24
+</div>
+
+
+<a
+class="menu-link"
+href="https://www.elephanterestaurants.com/menus-dallas/"
+target="_blank"
+rel="noopener noreferrer"
+>
+View the Elephante Menu ↗
+</a>
+
+</div>
+
+
+<form
+id="rsvpForm"
+method="POST"
+target="hidden_iframe"
+>
+
+
+<!-- NAME -->
+
+<label class="title" for="name">
+Your name
+</label>
+
+<input
+id="name"
+name="name"
+type="text"
+placeholder="Your name"
+required
+>
+
+
+<!-- TIME -->
+
+<label class="title">
+Preferred time
+</label>
+
+
+<div class="options">
+
+
+<label class="option">
+
+<input
+type="radio"
+name="preferred_time"
+value="6:30 PM"
+>
+
+<span class="time">
+6:30 PM
+</span>
+
+<span class="desc">
+early dinner
+</span>
+
+</label>
+
+
+
+<label class="option">
+
+<input
+type="radio"
+name="preferred_time"
+value="7:30 PM"
+>
+
+<span class="time">
+7:30 PM
+</span>
+
+<span class="desc">
+prime date-night hour
+</span>
+
+</label>
+
+
+
+<label class="option">
+
+<input
+type="radio"
+name="preferred_time"
+value="8:30 PM"
+>
+
+<span class="time">
+8:30 PM
+</span>
+
+<span class="desc">
+late-night vibes
+</span>
+
+</label>
+
+
+
+<label class="option">
+
+<input
+type="radio"
+name="preferred_time"
+value="9:30 PM"
+>
+
+<span class="time">
+9:30 PM
+</span>
+
+<span class="desc">
+fashionably late
+</span>
+
+</label>
+
+
+
+<label class="option">
+
+<input
+type="radio"
+name="preferred_time"
+value="Surprise me"
+>
+
+<span class="time">
+Surprise me
+</span>
+
+<span class="desc">
+you decide ;)
+</span>
+
+</label>
+
+
+</div>
+
+
+<!-- MENU CHOICE -->
+
+<label class="title" for="looking_to_try">
+
+Anything you’re looking to try?
+
+<span style="font-weight:400;color:var(--muted)">
+(optional)
+</span>
+
+</label>
+
+
+<textarea
+id="looking_to_try"
+name="looking_to_try"
+placeholder="Anything on the menu catching your eye? 👀"
+></textarea>
+
+
+<!-- NOTES -->
+
+<label class="title" for="notes">
+
+Anything I should know?
+
+<span style="font-weight:400;color:var(--muted)">
+(optional)
+</span>
+
+</label>
+
+
+<textarea
+id="notes"
+name="notes"
+placeholder="Anything you want to add..."
+></textarea>
+
+
+
+<!-- HIDDEN DATA -->
+
+<input
+type="hidden"
+name="event"
+value="Elephante Dallas — October 24"
+>
+
+<input
+type="hidden"
+name="source"
+value="Elephante RSVP"
+>
+
+<input
+type="hidden"
+id="client_time"
+name="client_time"
+value=""
+>
+
+
+<div
+id="error"
+class="error"
+></div>
+
+
+<button
+id="submitBtn"
+type="submit"
+>
+RSVP 💌
+</button>
+
+
+</form>
+
+
+<div class="note">
+
+Your response will be saved privately to the host’s RSVP sheet.
+
+</div>
+
+
+</div>
+
+
+
+<!-- CONFIRMATION -->
+
+<div
+class="confirm"
+id="confirmView"
+>
+
+
+<div class="heart">
+🤍
+</div>
+
+
+<h2>
+It’s a date.
+</h2>
+
+
+<p>
+
+Your RSVP was sent.
+
+<br>
+
+I’ll handle the rest 😉
+
+</p>
+
+
+</div>
+
+
+</section>
+
+</div>
+
+
+
+<iframe
+name="hidden_iframe"
+style="display:none"
+></iframe>
+
+
+
+<script>
+
+/* YOUR GOOGLE APPS SCRIPT URL */
+
+const APPS_SCRIPT_URL =
+"https://script.google.com/macros/s/AKfycbysGzP23dJs7arPXQyN5n3VaE8GMuCry_MFE4euFGwQcLCvmF3snmeZtOGL34rh0tjsqg/exec";
+
+
+const form =
+document.getElementById("rsvpForm");
+
+
+const errorBox =
+document.getElementById("error");
+
+
+const submitBtn =
+document.getElementById("submitBtn");
+
+
+
+form.addEventListener(
+"submit",
+function(e){
+
+
+const picked =
+document.querySelector(
+'input[name="preferred_time"]:checked'
+);
+
+
+/* REQUIRE A TIME */
+
+if(!picked){
+
+e.preventDefault();
+
+errorBox.style.display =
+"block";
+
+errorBox.textContent =
+"Pick a time for us first 😉";
+
+return;
+
+}
+
+
+/* CHECK SCRIPT CONNECTION */
+
+if(
+APPS_SCRIPT_URL.includes("PASTE_YOUR")
+){
+
+e.preventDefault();
+
+errorBox.style.display =
+"block";
+
+errorBox.textContent =
+"The RSVP form still needs to be connected to the response sheet.";
+
+return;
+
+}
+
+
+/* ADD CLIENT TIME */
+
+errorBox.style.display =
+"none";
+
+
+document.getElementById(
+"client_time"
+).value =
+new Date().toLocaleString();
+
+
+/* SEND TO GOOGLE SHEETS */
+
+form.action =
+APPS_SCRIPT_URL;
+
+
+submitBtn.disabled =
+true;
+
+
+submitBtn.textContent =
+"Sending RSVP…";
+
+
+/* SHOW CONFIRMATION */
+
+setTimeout(
+()=>{
+
+document.getElementById(
+"formView"
+).style.display =
+"none";
+
+
+document.getElementById(
+"confirmView"
+).style.display =
+"block";
+
+},
+700
+);
+
+
+});
+
+</script>
+
+
+</body>
+</html>
